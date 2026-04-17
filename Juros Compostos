@@ -1,0 +1,26 @@
+//Juros compostos
+ 
+#include<stdio.h>
+#include<math.h>
+int main (void){
+float ValorI, TaxaA, TaxaM, T, ValorF, Lucro;
+printf("• Digite o valor que deseja investir:\n");
+scanf("%f", &ValorI);
+printf("\n• Digite a taxa anual do banco que deseja investir:\n");
+scanf("%f", &TaxaA);
+ 
+printf("\n• Digite por quanto tempo em meses que você deseja investir:\n");
+scanf("%f", &T);
+ 
+TaxaA = (TaxaA/100);
+TaxaM = pow(1 + TaxaA, 1.0/12.0) -1;
+ 
+ValorF = ValorI*pow(1 + TaxaM, T);
+ 
+printf("\n• O valor obtido com o investimento é de: R$%1.2f\n", ValorF);
+ 
+Lucro = (ValorF - ValorI);
+ 
+printf("• O lucro obtido é de:R$%1.2f", Lucro);
+ 
+}
