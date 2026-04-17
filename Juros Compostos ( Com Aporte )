@@ -1,0 +1,98 @@
+//Juros compostos ( Com aporte )
+ 
+#include <stdio.h>
+#include <math.h>
+ 
+float Le_Valor_Inicial (void){
+float ValorI;
+printf("Digite o valor inicial a ser investido:\nCaso nao possua um valor inicial, digite 0.00:\n");
+scanf("%f", &ValorI);
+    return (ValorI);
+}
+ 
+ 
+float Le_Valor_Aporte (void){
+ 
+float ValorA;
+printf("\nDigite o valor do aporte mensal a ser investido:\nCaso nao havera aporte mensal, digite 0.00:\n");
+scanf("%f", &ValorA);
+    return (ValorA);
+}
+ 
+ 
+int Le_Tempo (void){
+int T;
+printf("\nDigite o tempo previsto para o investimento (em meses):\n");
+scanf("%d", &T);
+    return (T);
+}
+ 
+ 
+float Le_Taxa_Anual (void){
+float TaxaA;
+printf("\nDigite o valor da taxa SELIC anual (em %):\n");
+scanf("%f", &TaxaA);
+    return (TaxaA);
+}
+ 
+ 
+float Calcula_Taxa_Mensal (float TaxaA){
+float TaxaM;
+ 
+TaxaA = (TaxaA/100.0);
+TaxaM = pow(1 + TaxaA, 1.0/12.0) - 1;
+    return (TaxaM);
+}
+ 
+ 
+float Calcula_ValorF_Capital_Inicial (float ValorI, float TaxaM, int T){
+float ValorF_CI;
+ 
+ValorF_CI = ValorI *pow(1 + TaxaM, T);
+ 
+    return (ValorF_CI);
+}
+ 
+ 
+void Mostra_ValorF_Capital_Inicial (float ValorF_CI, int T){
+ 
+    printf("\nO capital inicial investido, apos %d meses, resultou em: R$%.2f", T, ValorF_CI);
+}
+
+float Calcula_ValorF_Aporte (float ValorI, float ValorA, float TaxaM, int T){
+float ValorF_A;
+ 
+ValorF_A = ValorI *pow((1 + TaxaM), T) + ValorA *(pow((1 + TaxaM), T) - 1) / TaxaM;
+ 
+    return (ValorF_A);
+}
+
+ 
+void Mostra_ValorF_Aporte (float ValorF_A, int T){
+ 
+    printf("O montante acumulado nos %d meses sera de: R$%.2f",T, ValorF_A);
+}
+ 
+int main(void){
+ 
+    int Tempo;
+    float VI, VA, TA, TaxaM, VF_CI, VF_A;
+ 
+    // Entrada de informacoes
+    VI = Le_Valor_Inicial();
+    VA = Le_Valor_Aporte();
+    Tempo = Le_Tempo();
+    TA = Le_Taxa_Anual();
+ 
+    // Calcula taxa mensal
+    TaxaM = Calcula_Taxa_Mensal(TA);
+ 
+    // Valor Final com Capital Inicial
+    VF_CI = Calcula_ValorF_Capital_Inicial(VI, TaxaM, Tempo);
+    Mostra_ValorF_Capital_Inicial(VF_CI, Tempo);
+ 
+    printf("\n");
+    // Valor Final com Aporte
+    VF_A = Calcula_ValorF_Aporte(VI, VA, TaxaM, Tempo);
+    Mostra_ValorF_Aporte(VF_A, Tempo);
+}
